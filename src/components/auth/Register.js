@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { required, validEmail, validPassword, validUserName } from './../util/validation';
+import { required, validEmail, validPassword, validUserName } from '../../util/validation';
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 
 const Register = (props) => {
 
@@ -117,12 +117,12 @@ const Register = (props) => {
                   {message}
               </div>
             </div>
-          )};
+          )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
     </div>
-  );
+  )
 };
 
 export default Register;

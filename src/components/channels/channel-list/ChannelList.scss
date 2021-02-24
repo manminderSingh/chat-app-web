@@ -1,0 +1,7 @@
+@import '../../../styles/_colors';
+
+#channel-list {
+    grid-area: channel-list;
+    background: $primary-color;
+    overflow-y: scroll;
+}

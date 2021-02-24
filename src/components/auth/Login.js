@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
-import { required, validEmail } from './../util/validation';
+import { required, validEmail } from '../../util/validation';
 
-import AuthService from '../services/auth.service';
+import AuthService from '../../services/auth.service';
 
 const Login = (props) => {
 
@@ -35,9 +35,12 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (!checkBtn.current.context._errors.length) {
-      AuthService.login(email, password).then(() => {
+      AuthService.login(email, password).then((response) => {
+        AuthService.fetchCurrentUser(response).then(result => {
+          props.history.push('/dashboard');   
+        }).catch(error => {console.log(error)});
         // Todo: Have to figure out what would be the path after logging in.
-        props.history.push('/dashboard');
+        // 
 
         /*  
           Should also get the current user at this point by
@@ -62,12 +65,11 @@ const Login = (props) => {
   return (
     <div className='col-md-12'>
       <div className='card card-container'>
-        {/* Profile pic here */}
         <img
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
           className="profile-img-card"
         />
-      </div>
 
       <Form onSubmit={onSubmitLogin} ref={form}>
 
@@ -112,6 +114,7 @@ const Login = (props) => {
 
         <CheckButton style={{ display: 'none' }} ref = {checkBtn}/>
       </Form>
+      </div>
     </div>
   );
 };
