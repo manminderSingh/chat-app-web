@@ -3,28 +3,45 @@
 $container-top-border: darken($primary-color, 27.84);
 
 #new-message-container {
-  display: grid;
-  grid: 40px / 40px;
+  display: flex;
+  align-items: center;
   align-content: center;
   grid-area: new-message-container;
   background: $primary-color;
   border-top: 1px solid $container-top-border;
   border-radius: 0 0 0 10px;
-  padding: 0 15px;
+  padding-left: 22px;
+  padding-right: 22px;
 
   button {
-    display: flex;
+    flex: 0 0 50px;
     align-items: center;
     justify-content: center;
-    background: $accent-color;
+    margin-left: 15px;
+    background-color: $accent-color;
     border-radius: 100%;
     color: $primary-dark;
     text-decoration: none;
     font-size: 2rem;
-    line-height: 2.5rem;
-    padding-bottom: 5px;
+    line-height: 2.8rem;
     outline: none;
     border: none;
     cursor: pointer;
+
+    &.active {
+      background: #548ea3;
+    }
+  }
+
+  input {
+    flex: 1 0;
+    outline: none;
+    padding: 15px;
+    border: 2px solid #dddddd;
+    border-right: none;
+    color: #2e2512;
+    border-radius: 6px 6px 6px 6px;
+    max-width: 175px;
+    min-width: 125px;
   }
 }

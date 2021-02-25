@@ -1,11 +1,9 @@
 import axios from 'axios';
+import {API_URL} from '../constants/';
 
 /* 
   Auth Service to register, login, logout and get the currentUser
 */
-
-// Todo: Move this to a config file
-const API_URL = "http://localhost:3000/";
 
 const register = (username, email, password) => {
   return axios.post(API_URL + "signup", {
@@ -16,19 +14,6 @@ const register = (username, email, password) => {
 }
 
 const login = (email, password) => {
-  // return axios
-  // .post(API_URL + 'login', {
-  //   email,
-  //   password,
-  // })
-  // .then((response) => {
-  //   if (response.data) {
-  //     console.log(response);
-  //     // This should return the token
-  //     // localStorage.setItem('currentUser', JSON.stringify(response.data));
-  //   }
-  //   return response.data;
-  // });
   return fetch(`${API_URL}/login`, {  
     method: 'post',
     headers: {

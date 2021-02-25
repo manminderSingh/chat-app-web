@@ -40,3 +40,7 @@ export const validPassword = (value) => {
     );
   }
 }
+
+export const isInputEmpty = (value) => {
+  return value.trim().length === 0;
+}

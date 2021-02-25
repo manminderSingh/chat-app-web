@@ -1,11 +1,21 @@
 import React from 'react';
 
-const ChatTitle = () => {
+import './ChatTitle.scss';
 
+const ChatTitle = ({ selectedChannel }) => {
+  let chatTitleContents = null;
+
+  if (selectedChannel) {
+    chatTitleContents = (
+      <>
+        <span>{ selectedChannel.name }</span>
+      </>
+    );
+  }
 
   return(
     <div id='chat-title'>
-      Chat Title here
+      { chatTitleContents }
     </div>
   )
 }
