@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './ChannelSearch.scss';
+import './ChannelTitle.scss';
 
-const ChannelSearch = () => {
+const ChannelTitle = () => {
 
   // props.conversation
 
@@ -13,4 +13,4 @@ const ChannelSearch = () => {
   );
 }
 
-export default ChannelSearch;
+export default ChannelTitle;

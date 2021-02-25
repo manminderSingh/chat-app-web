@@ -8,11 +8,16 @@ const init = () => {
   return cable;
 }
 
-const channelList = () => {
-  let cable = init();
+// cable = ((instance) => {
+//   instance = actioncable.createConsumer(API_WS_URL);
+//   return instance;
+// })();
+ 
+const channelList = (channelList) => {
+  // let cable = init();
   cable.subscriptions.create({
-    channel: `conversations_channel`
-},{
+    channel: `ChannelsChannel`
+  },{
     connected: () => {
         console.log("connected!")
     },
@@ -21,6 +26,8 @@ const channelList = () => {
     },
     received: data => {
       console.log(data);
+      console.log(channelList);
+      return data;
       // return data;
     }
 })
