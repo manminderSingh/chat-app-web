@@ -6,30 +6,64 @@ import ChatTitle from '../components/chat-title/ChatTitle';
 import MessageList from './message/MessageList';
 import NoMessage from '../components/channels/no-message/NoMessage';
 import ChatForm from '../components/chat-form/ChatForm';
-import ChannelSearch from '../components/channels/channel-search/ChannelSearch';
+import ChannelTitle from '../components/channels/channel-title/ChannelTitle';
 
 import AuthService from '../services/auth.service';
 import DataSocket from '../services/data.socket';
 import DataService from '../services/data.service';
+import actioncable from 'actioncable';
+
+import { API_WS_URL} from './../constants/';
 
 import './Dashbaord.scss';
 
 const Dashboard = () => {
 
-  const [cable, setCable] = useState('');
   const [runOnce, setRunOnce] = useState(false);
   const [channelList, setChannelList] = useState('');
   const [selectedChannel, setSelectedChannel] = useState('');
+
+  let cable;
+
+  /* 
+  This has to be moved to maybe the App.js file
+  */
+  cable = ((instance) => {
+    instance = actioncable.createConsumer(API_WS_URL);
+    return instance;
+  })();
 
   useEffect(() => {
     DataService.channelList().then(result => {
       setChannelList(result);
     });
-    // DataSocket.channelList();
   },[])
 
+  useEffect(() => {
+    cable.subscriptions.create({
+      channel: `ChannelsChannel`
+    }, {connected: () => {},
+        disconnected: () => { console.log('disconnected'); },
+        received: data => {
+          let newChannel = data.channel;
+          let existingChannelList = channelList;
+          if (existingChannelList && newChannel) {
+            let existingIds = existingChannelList.map(existingChannel => {
+              return existingChannel.id;
+            });
+            let hasDuplicate = existingIds.some((item, idx) => { 
+              return existingIds.indexOf(item) !== idx 
+            });
+            if (!hasDuplicate) {
+              existingChannelList = [...existingChannelList, newChannel];
+              setChannelList(existingChannelList);
+            }
+          }
+        }
+    })
+  })
+
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
-  // console.log(currentUser);
   const history = useHistory();
 
   if (currentUser && currentUser.id && currentUser.email) {
@@ -46,7 +80,7 @@ const Dashboard = () => {
 
     return(
       <div id='chat-container'>
-        <ChannelSearch/>
+        <ChannelTitle/>
         <ChannelList
             selectedChannel={selectedChannel}
             channels={channelList} 
