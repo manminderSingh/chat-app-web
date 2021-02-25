@@ -1,1 +1,27 @@
 @import '../../../styles/_colors';
+
+.channel {
+  display: grid;
+  color: $contrasted-primary-text;
+  font-size: 1rem;
+  border-bottom: 1px solid $primary-dark;
+  padding: 20px 20px 15px;
+
+  &.active,
+  &:hover {
+    background: $primary-dark;
+    cursor: pointer;
+  }
+
+  .title-text {
+    padding-left: 5px;
+    white-space: nowrap;
+  }
+
+  .created-date {
+    color: $light-grey-border;
+    white-space: nowrap;
+    font-size: 0.5rem;
+  }
+
+}

@@ -37,16 +37,9 @@ const Login = (props) => {
     if (!checkBtn.current.context._errors.length) {
       AuthService.login(email, password).then((response) => {
         AuthService.fetchCurrentUser(response).then(result => {
-          props.history.push('/dashboard');   
+          props.history.push('/dashboard'); 
+          props.history.go(0);  
         }).catch(error => {console.log(error)});
-        // Todo: Have to figure out what would be the path after logging in.
-        // 
-
-        /*  
-          Should also get the current user at this point by
-          using token response and have it stored on localstorage
-        */
-
       },
       (error) => {
         const errorMessage = (error.response &&

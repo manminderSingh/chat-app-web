@@ -7,7 +7,7 @@ import AuthService from './../src/services/auth.service';
 
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import Dashboard from './components/Dashboard';
+import Dashboard from './containers/Dashboard';
 
 
 function App() {
@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-    // setCurrentUser({user: 'val'});
     if (user) {
       setCurrentUser(user);
     }
@@ -85,8 +84,6 @@ function App() {
             <Route exact path="/dashboard" component={Dashboard}/>
           </Switch>
       </div>
-
-
     </div>
   );
 }
