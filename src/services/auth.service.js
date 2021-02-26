@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {API_URL} from '../constants/';
 
 /* 
@@ -6,15 +5,28 @@ import {API_URL} from '../constants/';
 */
 
 const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
-    username,
-    email,
-    password,
-  });
+  return fetch(`${API_URL}signup`, {  
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ "user": {
+      "email" : email,
+      "password" : password,
+      "username": username
+    }})
+}).then(res => {
+    if(res.headers) {
+      let token = res.headers.get('Authorization');
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+      return token;
+    }}).catch(err => console.error(err));
 }
 
 const login = (email, password) => {
-  return fetch(`${API_URL}/login`, {  
+  return fetch(`${API_URL}login`, {  
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -23,23 +35,48 @@ const login = (email, password) => {
       "email" : email,
       "password" : password
     }})
-  }).then(data => { return data.headers.get('Authorization')}).catch(err => console.error(err))
+  }).then(data => {
+    if (data.headers) {
+      let token = data.headers.get('Authorization');
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+      return token;
+    }}).catch(err => console.error(err));
 }
 
 const logout = () => {
+  let token = localStorage.getItem('token');
   localStorage.removeItem('currentUser');
   localStorage.removeItem('token');
-  // Logout call to the server should be written here
+  return fetch(`${API_URL}logout`, {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+    .then(res => {
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('token');
+      if(res.ok) {
+        return res.json()
+      } else {
+        return res.json().then(json => Promise.reject(json))
+      }
+    })
+    .then(json => {
+      console.dir(json)
+    })
+    .catch(err => console.error(err))
 }
 
 const getCurrentUser = () => {
-  // There could be another way to retrieve this value
   return JSON.parse(localStorage.getItem('currentUser'));
-
 }
 
 const fetchCurrentUser = (token) => {
-  return fetch(`${API_URL}/authentication/auth`,
+  return fetch(`${API_URL}authentication/auth`,
     {
       headers: {
         'Content-Type': 'application/json',

@@ -36,12 +36,16 @@ const Login = (props) => {
 
     if (!checkBtn.current.context._errors.length) {
       AuthService.login(email, password).then((response) => {
-        AuthService.fetchCurrentUser(response).then(result => {
-          props.history.push('/dashboard'); 
-          props.history.go(0);  
-        }).catch(error => {console.log(error)});
-      },
-      (error) => {
+        if (response) {
+          AuthService.fetchCurrentUser(response).then(result => {
+            props.history.push('/dashboard'); 
+            props.history.go(0);  
+          }).catch(error => {console.log(error)});
+        } else if (!response) {
+          setLoading(false);
+          setMessage('Unauthorized, Please check your credentials');
+        }
+      }, (error) => {
         const errorMessage = (error.response &&
                               error.response.data &&
                               error.response.data.message) ||

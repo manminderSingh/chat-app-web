@@ -4,8 +4,6 @@ import './ChannelTitle.scss';
 
 const ChannelTitle = () => {
 
-  // props.conversation
-
   return (
     <div id='channel-title'>
       <h4>Channels</h4>

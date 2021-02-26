@@ -7,8 +7,6 @@ const Channel= ({channel, isActive, onChannelItemSelected}) => {
     'active': isActive
   });
 
-  // console.log(channel);
-
   return (
     <div className={className} onClick={() => onChannelItemSelected(channel)}>
         <div className="title-text">{channel.name}</div>
