@@ -84,6 +84,7 @@ const Register = () => {
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <Input
+                  id='username'
                   type="text"
                   className="form-control"
                   name="username"
@@ -95,6 +96,7 @@ const Register = () => {
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <Input
+                  id='email'
                   type="text"
                   className="form-control"
                   name="email"
@@ -106,6 +108,7 @@ const Register = () => {
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <Input
+                  id='password'
                   type="password"
                   className="form-control"
                   name="password"

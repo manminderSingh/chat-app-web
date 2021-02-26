@@ -1,7 +1,5 @@
-import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Switch, Route, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import AuthService from './../src/services/auth.service';
 
@@ -9,6 +7,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './containers/Dashboard';
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import './App.scss';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
