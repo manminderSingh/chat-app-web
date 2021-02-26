@@ -29,7 +29,24 @@ const login = (email, password) => {
 const logout = () => {
   localStorage.removeItem('currentUser');
   localStorage.removeItem('token');
-  // Logout call to the server should be written here
+  return fetch('http://localhost:3000/logout', {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
+    }
+  })
+    .then(res => {
+      if(res.ok) {
+        return res.json()
+      } else {
+        return res.json().then(json => Promise.reject(json))
+      }
+    })
+    .then(json => {
+      console.dir(json)
+    })
+    .catch(err => console.error(err))
 }
 
 const getCurrentUser = () => {

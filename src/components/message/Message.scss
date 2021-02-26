@@ -13,21 +13,41 @@ $speech-bubble-border-color: darken($accent-color, 13.18);
 
         > img {
             border-radius: 100%;
-            grid-row: span 2;
-            width: 48px;
-            height: 48px;
+            grid-row: span 3;
+            width: 56px;
+            height: 56px;
         }
         
         > .message-time {
-            font-size: 1.3rem;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            line-height: 0.5rem;
             color: $message-time-color;
         }
-        
-        > .message-text {
+
+        > .message-wrapper {
             padding: 9px 14px;
-            font-size: 1.6rem;
+            font-size: 1rem;
             margin-bottom: 5px;
-        }
+            max-height: 60px;
+            min-height: 50px;
+
+            > .message-text {
+                font-size: 1rem;
+            }
+
+            > .message-username {
+                height: 10px;
+                float: left !important;
+                margin-bottom: 5px !important;
+                width: 100%;
+                font-weight: 400;
+                font-style: italic;
+                padding-right: 40px;
+                font-size: 0.6rem;
+                padding-bottom: 5px;
+            }
+        }    
     }
 
     &.you-message {
@@ -36,11 +56,16 @@ $speech-bubble-border-color: darken($accent-color, 13.18);
         > .message-content {
             justify-items: end;
 
-            > .message-text {
+            > .message-time {
+                padding-right: 5px;
+            }
+
+            > .message-wrapper {
                 background: $primary-color;
                 color: $contrasted-primary-text;
                 border: 1px solid $primary-color;
-                border-radius: 14px 14px 0 14px;
+                border-radius: 15px 15px 0 15px;
+                margin-right: 5px;
             }
         }
     }
@@ -52,11 +77,15 @@ $speech-bubble-border-color: darken($accent-color, 13.18);
             grid-template-columns: 48px 1fr;
             grid-column-gap: 15px;
 
-            > .message-text {
+            > .message-time {
+                display: flex;
+            }
+
+            > .message-wrapper {
                 background: $accent-color;
                 color: $contrasted-accent-text;
                 border: 1px solid $speech-bubble-border-color;
-                border-radius: 14px 14px 14px 0;
+                border-radius: 15px 15px 15px 0;
             }
         }
     }

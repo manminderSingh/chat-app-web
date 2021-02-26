@@ -6,15 +6,15 @@ import Input from 'react-validation/build/input';
 import './ChatForm.scss';
 import { isInputEmpty } from '../../util/validation';
 
+import DataService from '../../services/data.service';
 
-
-const ChatForm = ({ selectedChannel, onMessagesSubmitted } ) => {
+const ChatForm = ({ selectedChannel, currentUser } ) => {
   
   const [textMessage, setTextMessage] = useState('');
   const isMessageEmpty = isInputEmpty;
   const disableButton = isMessageEmpty(textMessage);
   const form = useRef();
-  const className = classNames('conversation', {
+  const className = classNames('channels', {
     'active': disableButton
   });
 
@@ -36,12 +36,11 @@ const ChatForm = ({ selectedChannel, onMessagesSubmitted } ) => {
 
   const onMessageSubmitted = (textMessage) => {
     // Propogate the changes up stream to the rails app
-    console.log(textMessage);
+    DataService.sendMessage(selectedChannel, currentUser, textMessage);
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-
     if(!isMessageEmpty(textMessage)) {
       onMessageSubmitted(textMessage);
       setTextMessage('');
@@ -50,7 +49,7 @@ const ChatForm = ({ selectedChannel, onMessagesSubmitted } ) => {
 
   return (
     <Form id='chat-form' onSubmit={handleFormSubmit} ref={form}>
-     { formContents }
+      { formContents }
     </Form>
   )
 }

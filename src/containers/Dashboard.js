@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ChannelList from '../components/channels/channel-list/ChannelList';
 import NewChannel from '../components/channels/new-channel/NewChannel';
 import ChatTitle from '../components/chat-title/ChatTitle';
@@ -9,7 +9,6 @@ import ChatForm from '../components/chat-form/ChatForm';
 import ChannelTitle from '../components/channels/channel-title/ChannelTitle';
 
 import AuthService from '../services/auth.service';
-import DataSocket from '../services/data.socket';
 import DataService from '../services/data.service';
 import actioncable from 'actioncable';
 
@@ -19,10 +18,9 @@ import './Dashbaord.scss';
 
 const Dashboard = () => {
 
-  const [runOnce, setRunOnce] = useState(false);
   const [channelList, setChannelList] = useState('');
   const [selectedChannel, setSelectedChannel] = useState('');
-
+  const [channelMessages, setChannelMessages] = useState('');
   let cable;
 
   /* 
@@ -31,50 +29,99 @@ const Dashboard = () => {
   cable = ((instance) => {
     instance = actioncable.createConsumer(API_WS_URL);
     return instance;
-  })();
+  })(cable);
 
+  // Get Channels list - Run Once at the component mount
   useEffect(() => {
     DataService.channelList().then(result => {
       setChannelList(result);
+      if (result.length > 0 && !selectedChannel) {
+        setSelectedChannel(result[0]);
+      }
     });
-  },[])
+  },[selectedChannel])
 
+  // Get messages associated with the selected channel
   useEffect(() => {
+    if (selectedChannel) {
+      DataService.getChannelMessages(selectedChannel).then(result => {
+        if (result && result.messages.length > 0) {
+          let messages = result.messages;
+          setChannelMessages(messages);
+        }
+      })
+    }
+  },[selectedChannel])
+
+  // Web Socket - Listening to channel getting added
+  useEffect(() => {
+    let isMounted = true;
     cable.subscriptions.create({
       channel: `ChannelsChannel`
-    }, {connected: () => {},
-        disconnected: () => { console.log('disconnected'); },
-        received: data => {
+    },
+    { connected: () => {},
+      disconnected: () => { console.log('disconnected'); },
+      received: data => {
+        if (isMounted) {
           let newChannel = data.channel;
           let existingChannelList = channelList;
           if (existingChannelList && newChannel) {
-            let existingIds = existingChannelList.map(existingChannel => {
-              return existingChannel.id;
-            });
-            let hasDuplicate = existingIds.some((item, idx) => { 
-              return existingIds.indexOf(item) !== idx 
-            });
+            let existingIds = existingChannelList.map(existingChannel => existingChannel.id);
+            let hasDuplicate = existingIds.some((item, idx) => existingIds.indexOf(item) !== idx);
             if (!hasDuplicate) {
               existingChannelList = [...existingChannelList, newChannel];
               setChannelList(existingChannelList);
-            }
-          }
+            };
+          };
         }
-    })
-  })
+      }
+    });
+    return () => { isMounted = false }
+  });
 
-  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
+  // Web Socket - Listening to any message changes
+  useEffect(() => {
+    let isMounted = true; // note this flag denote mount status
+    cable.subscriptions.create({
+      channel: `MessagesChannel`
+    },
+    { connected: () => {},
+      disconnected: () => console.log('disconnected'),
+      received: data => {
+        if (isMounted) {
+          let newMessage = data.message;
+          let existingMessages = channelMessages;
+          if (existingMessages && newMessage) {
+            let existingIds = existingMessages.map(existingMessage => existingMessage.id);
+            let hasDuplicate = existingIds.some((item, index) => existingIds.indexOf(item) !== index);
+            if (!hasDuplicate) {
+              if (newMessage.channel_id === parseInt(selectedChannel.id)) {
+                let newMessages = [...existingMessages, newMessage];
+                setChannelMessages(newMessages);
+              }
+            };
+          };
+        }
+      }
+    });
+    return () => { isMounted = false }
+  });
+
+  const currentUser = AuthService.getCurrentUser();
   const history = useHistory();
 
   if (currentUser && currentUser.id && currentUser.email) {
-    let messages = []; // Pull from socket connection
     let channelContent = (
-      <><NoMessage/></>
+      <> <NoMessage selectedChannel={selectedChannel}/> </>
     );
 
-    if (messages && messages.length > 0) {
+    if (channelMessages && channelMessages.length > 0) {
       channelContent = (
-        <><MessageList/></>
+        <>
+          <MessageList 
+            currentUser={currentUser}
+            messages={channelMessages} />
+        </>
       )
     };
 
@@ -82,18 +129,19 @@ const Dashboard = () => {
       <div id='chat-container'>
         <ChannelTitle/>
         <ChannelList
-            selectedChannel={selectedChannel}
-            channels={channelList} 
-            onChannelItemSelected={(channel) => { setSelectedChannel(channel) }}/>
-        <NewChannel/>
+          selectedChannel={selectedChannel}
+          channels={channelList} 
+          onChannelItemSelected={(channel) => { setSelectedChannel(channel); setChannelMessages([]); }}/>
+        <NewChannel selectedChannel={selectedChannel}/>
         <ChatTitle 
-            selectedChannel={selectedChannel}/>
+          selectedChannel={selectedChannel}/>
         {channelContent}
-        <ChatForm selectedChannel={selectedChannel}/>
+        <ChatForm selectedChannel={selectedChannel} currentUser={currentUser}/>
       </div>
     );
   } else {
     history.push('login');
+    history.go(0);
     return null;
   }
 }

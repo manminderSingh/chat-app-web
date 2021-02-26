@@ -13,7 +13,7 @@ const NewChannel = () => {
   const [channelName, setChannelName] = useState('');
   const disableButton = isInputEmpty(channelName);
 
-  const className = classNames('conversation', {
+  const className = classNames('channels', {
     'active': disableButton
   });
 
@@ -25,12 +25,12 @@ const NewChannel = () => {
  
   return (
     <Form id='new-message-container' onSubmit={ onSubmitChannel } ref={form}>
-          <Input
-            type='text' 
-            placeholder='Add Channel'
-            value={ channelName }
-            onChange={ (e) => { setChannelName(e.target.value) }}/>
-          <button className={ className } disabled={ disableButton }>+</button>
+      <Input
+        type='text' 
+        placeholder='Add Channel'
+        value={ channelName }
+        onChange={ (e) => { setChannelName(e.target.value) }}/>
+      <button className={ className } disabled={ disableButton }>+</button>
     </Form>
   );
 };

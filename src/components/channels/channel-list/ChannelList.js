@@ -9,7 +9,7 @@ const ChannelList = ({selectedChannel, onChannelItemSelected, channels}) => {
   let channelItems = null;
 
   if (channels && channels.length > 0) {
-    channelItems = channels.map((channel, index) => {
+    channelItems = channels.map(channel => {
       const channelIsActive = selectedChannel && channel.id === selectedChannel.id;
 
       return <Channel 
