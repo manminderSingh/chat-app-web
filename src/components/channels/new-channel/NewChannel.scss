@@ -23,7 +23,8 @@ $container-top-border: darken($primary-color, 27.84);
     color: $primary-dark;
     text-decoration: none;
     font-size: 2rem;
-    line-height: 2.8rem;
+    line-height: 2.6rem;
+    padding-bottom: 4px;
     outline: none;
     border: none;
     cursor: pointer;
@@ -36,7 +37,7 @@ $container-top-border: darken($primary-color, 27.84);
   input {
     flex: 1 0;
     outline: none;
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #dddddd;
     border-right: none;
     color: #2e2512;

@@ -60,7 +60,7 @@ $speech-bubble-border-color: darken($accent-color, 13.18);
                 padding-right: 5px;
             }
 
-            > .message-wrapper {
+            >.message-wrapper {
                 background: $primary-color;
                 color: $contrasted-primary-text;
                 border: 1px solid $primary-color;
@@ -81,7 +81,7 @@ $speech-bubble-border-color: darken($accent-color, 13.18);
                 display: flex;
             }
 
-            > .message-wrapper {
+            >.message-wrapper {
                 background: $accent-color;
                 color: $contrasted-accent-text;
                 border: 1px solid $speech-bubble-border-color;

@@ -19,10 +19,10 @@ const addChannel = (channelName) => {
     redirect: 'follow'
   };
 
-  fetch(`${API_URL}channels/`, options)
+  return fetch(`${API_URL}channels/`, options)
     .then(response => response.text())
     .then(result => { return result; })
-    .catch(error => console.log('error', error));
+    .catch(error => error);
 }
 
 const getChannelMessages = (selectedChannel) => {
