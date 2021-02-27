@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import ChannelList from '../components/channels/channel-list/ChannelList';
 import NewChannel from '../components/channels/new-channel/NewChannel';
 import ChatTitle from '../components/chat-title/ChatTitle';
-import MessageList from './message/MessageList';
+import MessageList from './message-list/MessageList';
 import NoMessage from '../components/channels/no-message/NoMessage';
 import ChatForm from '../components/chat-form/ChatForm';
 import ChannelTitle from '../components/channels/channel-title/ChannelTitle';
@@ -60,7 +60,7 @@ const Dashboard = () => {
       channel: `ChannelsChannel`
     },
     { connected: () => {},
-      disconnected: () => { console.log('disconnected'); },
+      disconnected: () => {},
       received: data => {
         if (isMounted) {
           let newChannel = data.channel;
@@ -86,7 +86,7 @@ const Dashboard = () => {
       channel: `MessagesChannel`
     },
     { connected: () => {},
-      disconnected: () => console.log('disconnected'),
+      disconnected: () => {},
       received: data => {
         if (isMounted) {
           let newMessage = data.message;

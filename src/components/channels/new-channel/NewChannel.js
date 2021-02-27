@@ -38,7 +38,10 @@ const NewChannel = () => {
  
   return (
     <Form id='new-message-container' onSubmit={ onSubmitChannel } ref={form}>
+     <label hidden={true} htmlFor='addChannel'>Add Channel</label>
       <Input
+        className='addChannel'
+        id='addChannel'
         type='text' 
         placeholder='Add Channel'
         value={ channelName }

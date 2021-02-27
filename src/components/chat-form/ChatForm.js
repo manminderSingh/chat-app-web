@@ -24,7 +24,10 @@ const ChatForm = ({ selectedChannel, currentUser } ) => {
   if (selectedChannel) {
     formContents = (
       <>
+        <label hidden={true} htmlFor='addMessage'>Add Message</label>
         <Input
+          id='addMessage'
+          className='addMessage'
           type='text'
           placeholder={`Message ${selectedChannel.name}`}
           value={textMessage}
