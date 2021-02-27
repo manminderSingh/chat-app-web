@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders to match dom tree 1`] = `
+exports[`The App Component renders to match dom tree 1`] = `
 <div
   className="App"
 >
