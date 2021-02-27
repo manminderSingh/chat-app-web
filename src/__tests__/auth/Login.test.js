@@ -5,7 +5,7 @@ import {build, fake} from '@jackfranklin/test-data-bot'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import Login from '../../components/auth/Login';
-import ReactDOM from 'react-dom'
+
 
 const buildLoginForm = build({
   fields: {

@@ -42,7 +42,7 @@ const login = (email, password) => {
         localStorage.setItem('token', token);
       }
       return token;
-    }}).catch(err => console.error(err));
+    }}).catch(err => console.log(err));
 }
 
 const logout = () => {
