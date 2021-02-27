@@ -59,4 +59,4 @@ export const mockNonExistentChannel = () => {
     "created_at": "2021-02-26T06:15:34.593Z",
     "updated_at": "2021-02-26T06:15:34.593Z"
   }
-}
+};

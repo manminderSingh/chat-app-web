@@ -54,4 +54,4 @@ test('if the nonexistent channel does exist', () => {
   });
 
   expect(doesExist.length).toBe(0);
-})
+});

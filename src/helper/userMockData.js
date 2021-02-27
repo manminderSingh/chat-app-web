@@ -4,4 +4,4 @@ export const getCurrentUser = () => {
     id: 7,
     username: "Nicky"
   }
-}
+};
