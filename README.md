@@ -14,7 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     $ git clone git@github.com:manminderSingh/chat-app-web.git
     ```
 
-3. Once donwloaded, cd into chat-app-web/ and run npm install (assuming node and npm are already installed on the system)
+3. Once downloaded, cd into the chat-app-web/ and run npm install (assuming node and npm are already installed on the system).
 
     ```
     $ npm install
@@ -34,7 +34,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     $ npm test
     ```
 
-2. After running the command you would be prompted by following message:
+2. After running the command you would be prompted by following message: 
 
     ```
     Watch Usage
