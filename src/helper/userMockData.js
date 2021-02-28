@@ -73,21 +73,21 @@ export const mockAllUsers = () => {
       },
       {
         "username": "commander",
-        "email": "manmindersingh89@gmail.com",
+        "email": "test25@test.com",
         "id": 10,
         "created_at": "2021-02-26T04:44:16.360Z",
         "updated_at": "2021-02-26T04:44:16.360Z"
       },
       {
-        "username": "msodhi",
-        "email": "mkaur5763@gmail.com",
+        "username": "test30",
+        "email": "test30@test.com",
         "id": 11,
         "created_at": "2021-02-26T04:58:15.684Z",
         "updated_at": "2021-02-26T04:58:15.684Z"
       },
       {
-        "username": "msodhi1",
-        "email": "manmindersinghsodhi@gmail.com",
+        "username": "test31",
+        "email": "test31@test.com",
         "id": 12,
         "created_at": "2021-02-26T05:02:08.074Z",
         "updated_at": "2021-02-26T05:02:08.074Z"
