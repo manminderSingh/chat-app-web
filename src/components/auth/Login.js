@@ -36,19 +36,16 @@ const Login = (props) => {
 
     if (!checkBtn.current.context._errors.length) {
       AuthService.login(email, password).then((response) => {
-        AuthService.fetchCurrentUser(response).then(result => {
-          props.history.push('/dashboard');   
-        }).catch(error => {console.log(error)});
-        // Todo: Have to figure out what would be the path after logging in.
-        // 
-
-        /*  
-          Should also get the current user at this point by
-          using token response and have it stored on localstorage
-        */
-
-      },
-      (error) => {
+        if (response) {
+          AuthService.fetchCurrentUser(response).then(result => {
+            props.history.push('/dashboard'); 
+            props.history.go(0);  
+          }).catch(error => {console.log(error)});
+        } else if (!response) {
+          setLoading(false);
+          setMessage('Unauthorized, Please check your credentials');
+        }
+      }, (error) => {
         const errorMessage = (error.response &&
                               error.response.data &&
                               error.response.data.message) ||
@@ -75,7 +72,8 @@ const Login = (props) => {
 
         <div className='form-group'>
           <label htmlFor='email'>Email</label>
-          <Input 
+          <Input
+            id='email'
             type='email'
             className='form-control'
             name='email'
@@ -87,6 +85,7 @@ const Login = (props) => {
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <Input
+            id='password'
             type="password"
             className="form-control"
             name="password"

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useHistory } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -6,7 +7,9 @@ import { required, validEmail, validPassword, validUserName } from '../../util/v
 
 import AuthService from "../../services/auth.service";
 
-const Register = (props) => {
+const Register = () => {
+
+  const history = useHistory();
 
   const form = useRef();
   const checkBtn = useRef();
@@ -42,9 +45,16 @@ const Register = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.register(username, email, password).then(response => {
-        console.log(response);
-        // setMessage(response.data);
-        setSuccessful(true);
+        if (response) {
+          setSuccessful(true);
+          AuthService.fetchCurrentUser(response).then(result => {
+            history.push('dashboard'); 
+            history.go(0);  
+          }).catch(error => console.log(error));
+        } else if (!response) {
+          setSuccessful(false);
+          setMessage('Email address or Username already exist.');
+        }
       }, error => {
         const errorMessage = 
           (error.response &&
@@ -52,7 +62,6 @@ const Register = (props) => {
           error.response.data.message) ||
           error.message ||
           error.toString();
-
         setMessage(errorMessage);
         setSuccessful(false);
       });
@@ -60,6 +69,7 @@ const Register = (props) => {
   };
 
   return (
+
     <div className="col-md-12">
       <div className="card card-container">
         <img
@@ -74,6 +84,7 @@ const Register = (props) => {
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <Input
+                  id='username'
                   type="text"
                   className="form-control"
                   name="username"
@@ -85,6 +96,7 @@ const Register = (props) => {
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <Input
+                  id='email'
                   type="text"
                   className="form-control"
                   name="email"
@@ -96,6 +108,7 @@ const Register = (props) => {
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <Input
+                  id='password'
                   type="password"
                   className="form-control"
                   name="password"

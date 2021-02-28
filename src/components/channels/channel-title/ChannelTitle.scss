@@ -1,0 +1,18 @@
+@import '../../../styles/_colors';
+
+#channel-title {
+  display: grid;
+  align-items: center;
+  align-content: center;
+  float: left;
+  grid-area: channel-title;
+  background: $primary-color;
+  color: $accent-color;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-radius: 10px 0 0 0;
+  box-shadow: 0 1px 3px -1px $shadow-box-color;
+  padding: 0 20px;
+  padding-top: 15px;
+  z-index: 1;
+}

@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The App Component renders to match dom tree 1`] = `
+<div
+  className="App"
+>
+  <nav
+    className="navbar navbar-expand navbar-dark bg-dark"
+  >
+    <a
+      className="navbar-brand"
+      href="/dashboard"
+      onClick={[Function]}
+    >
+      ChatApp
+    </a>
+    <div
+      className="navbar-nav ml-auto"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Login
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/register"
+          onClick={[Function]}
+        >
+          Sign Up
+        </a>
+      </li>
+    </div>
+  </nav>
+  <div
+    className="container mt-3"
+  >
+    <div
+      className="col-md-12"
+    >
+      <div
+        className="card card-container"
+      >
+        <img
+          alt="profile-img"
+          className="profile-img-card"
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        />
+        <form
+          onSubmit={[Function]}
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <div>
+              <input
+                className="form-control"
+                id="email"
+                name="email"
+                onBlur={[Function]}
+                onChange={[Function]}
+                type="email"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-group"
+          >
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <div>
+              <input
+                className="form-control"
+                id="password"
+                name="password"
+                onBlur={[Function]}
+                onChange={[Function]}
+                type="password"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-group"
+          >
+            <button
+              className="btn btn-primary btn-block"
+              disabled={false}
+            >
+              <span>
+                Login
+              </span>
+            </button>
+          </div>
+          
+          <button
+            disabled={true}
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

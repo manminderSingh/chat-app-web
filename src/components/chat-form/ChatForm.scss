@@ -1,0 +1,43 @@
+@import '../../styles/_colors';
+
+$input-border-color: darken($accent-color, 6.5%);
+$input-text-color: darken(adjust-hue($primary-color, -155), 23.33);
+$chat-form-top-border: darken($accent-color, 12.16);
+
+#chat-form {
+  display: flex;
+  align-items: center;
+  grid-area: chat-form;
+  background: $accent-color;
+  border-radius: 0 0 10px 0;
+  border-top: 1px solid $chat-form-top-border;
+  padding-left: 42px;
+  padding-right: 22px;
+
+  input {
+    flex: 1 0;
+    outline: none;
+    padding: 15px;
+    border: 2px solid #dddddd;
+    border-right: none;
+    color: #2e2512;
+    border-radius: 6px 6px 6px 6px;
+    max-width: 750px;
+    min-width: 650px;
+  }
+
+  button {
+    height: 55px;
+    flex: 0 0 90px;
+    border-radius: 6px 6px 6px 6px;
+    margin-left: 15px;
+    background: $primary-dark;
+    color: $accent-color;
+    cursor: pointer;
+
+    &.active {
+      background: #548ea3;
+      cursor: crosshair;
+    }
+  }
+}
